@@ -4,5 +4,5 @@ export const API_URL = {
     login: `${endPoint.API_URL}/api/Member/login`,
     signup: `${endPoint.API_URL}/api/Member/signup`,
     member: `${endPoint.API_URL}/api/Member`,
-    carPark: `${endPoint.API_URL}api/Carpark`
+    carPark: `${endPoint.API_URL}/api/Carpark`
 };

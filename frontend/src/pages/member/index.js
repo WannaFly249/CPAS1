@@ -19,7 +19,7 @@ function Member() {
   }, []);
 
   const getMemberInfo = () => {
-    const url = `${API_URL.member}/${memberId}`;
+    const url = `${API_URL.member}?memberId=${memberId}`;
     apiProvider.get(url).then((res) => {
       setUserInfo(res);
     });

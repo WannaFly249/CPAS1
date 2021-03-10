@@ -31,6 +31,11 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
 };
 
 const App = () => {
+  const logout = () => {
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('user');
+    window.location.reload();
+  }
   return (
     <BrowserRouter>
       <div className="App">
@@ -61,6 +66,11 @@ const App = () => {
                         <li className="nav-item">
                           <Link className="nav-link" to={"/member"}>
                             Member
+                          </Link>
+                        </li>
+                        <li className="nav-item">
+                          <Link className="nav-link" onClick={logout}>
+                            logout
                           </Link>
                         </li>
                       </React.Fragment>
