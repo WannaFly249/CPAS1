@@ -4,6 +4,7 @@ using CPAS.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using CPAS.Service.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace CPAS.API.Controllers
 {

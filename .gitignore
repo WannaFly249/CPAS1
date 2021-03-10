@@ -407,3 +407,4 @@ Backend/CPAS/obj/Release/netcoreapp3.1/staticwebassets/CPAS.API.StaticWebAssets.
 Backend/CPAS/obj/Release/netcoreapp3.1/staticwebassets/CPAS.API.StaticWebAssets.xml
 Backend/CPAS/Properties/PublishProfiles/FolderProfile.pubxml
 Backend/CPAS/Properties/PublishProfiles/FolderProfile.pubxml.user
+Backend/CPAS/obj/Release/netcoreapp3.1/CPAS.API.MvcApplicationPartsAssemblyInfo.cs

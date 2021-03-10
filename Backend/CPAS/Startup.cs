@@ -31,7 +31,11 @@ namespace CPAS
             services.AddDbContextPool<CarparkDbContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
 
             services.AddControllers();
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder => builder.AllowAnyOrigin());
+            });
             services.AddTransient<IMemberService, MemberService>();
             services.AddTransient<ICarparkService, CarparkService>();
             services.AddTransient<IMemberRepository, MemberRepository>();
@@ -68,7 +72,6 @@ namespace CPAS
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseHttpsRedirection();
 
             app.UseErrorHandlingMiddleware();
@@ -76,7 +79,7 @@ namespace CPAS
             app.UseMiddleware<JwtMiddleware>();
 
             app.UseRouting();
-
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
