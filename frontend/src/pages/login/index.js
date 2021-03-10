@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import toastr from 'toastr';
+import 'toastr/build/toastr.min.css';
 
 import {
   FormWithConstraints,
@@ -41,11 +43,19 @@ function Login(props) {
   const handleSignInAPI = (_data) => {
     const data = _data;
     apiProvider.post(API_URL.login, data).then((res) => {
-      const result = res.result;
+      const result = res.data.result;
       if (result) {
         window.location.reload();
         localStorage.setItem("auth_token", result.token);
-        localStorage.setItem("user", result);
+        localStorage.setItem("user", JSON.stringify(result));
+      } else {
+        toastr.clear();
+        toastr.options = {
+            positionClass : 'toast-bottom-full-width',
+            hideDuration: 300,
+            timeOut: 6000
+        };
+        toastr.error(`Email and password is not correct`);
       }
     });
   };

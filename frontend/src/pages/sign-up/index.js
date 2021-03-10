@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import toastr from 'toastr';
+import 'toastr/build/toastr.min.css';
 
 import { BrowserRouter as Link } from "react-router-dom";
 import {
@@ -39,10 +41,16 @@ function SignUp(props) {
   const handleSignUpAPI = (_data) => {
     const data = _data;
     apiProvider.post(API_URL.signup, data).then((res) => {
-      const result = res.result;
-      if (result) {
-        props.history.push("/sign-in");
-      }
+        toastr.clear();
+        toastr.options = {
+            positionClass : 'toast-bottom-full-width',
+            hideDuration: 300,
+            timeOut: 6000
+        };
+        toastr.success(`Register successfully`);
+        setTimeout(() => {
+            props.history.push("/sign-in");
+        }, 1000)
     });
   };
 

@@ -10,7 +10,9 @@ function Member() {
     emailName: "tientm@smartosc.com",
     contractNumber: "0915511994",
   });
-  const user = localStorage.getItem("user");
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
   const memberId = user ? user.id : "1";
   useEffect(() => {
     if (memberId) {
@@ -21,7 +23,9 @@ function Member() {
   const getMemberInfo = () => {
     const url = `${API_URL.member}?memberId=${memberId}`;
     apiProvider.get(url).then((res) => {
-      setUserInfo(res);
+      if (res.data) {
+        setUserInfo(res.data);
+      }
     });
   };
 
