@@ -41,7 +41,7 @@
   box-sizing: border-box;
 }
 body {
-  background: #1C8EF9 !important;
+  background: #fff !important;
   min-height: 100vh;
   display: flex;
   font-weight: 400;
@@ -56,6 +56,12 @@ h1,h2,h3,h4,h5,h6,label,span {
 body, html, .App, #root, .auth-wrapper {
   width: 100%;
   height: 100%;
+}
+.panel {
+  margin: 0 auto;
+  margin-top: 56px;
+  max-width: 1140px;
+  padding-top: 50px;
 }
 
 .navbar-light {
@@ -122,3 +128,6 @@ input, textarea {
   color: red;
 }
 
+thead.active {
+  background-color: rgb(220, 220, 220);
+}

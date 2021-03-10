@@ -1,40 +1,87 @@
-import React from 'react';
-import './App.css';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import SignUp from './pages/sign-up';
-import Login from './pages/login';
+import React from "react";
+import "./App.css";
+import {
+  BrowserRouter,
+  Route,
+  Link,
+  Switch,
+  Redirect
+} from "react-router-dom";
+import SignUp from "./pages/sign-up";
+import Login from "./pages/login";
+import Home from "./pages/home";
+import Member from "./pages/member";
+import axiosInterceptor from './services/interceptor.js';
 
+const ProtectedRoute = ({ component: Component, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={(props) => (
+        localStorage.getItem("auth_token") ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{ pathname: "/sign-in", state: { from: props.location } }}
+          />
+        )
+      )}
+    />
+  );
+};
 
-function App() {
-  return (<Router>
-    <div className="App">
-      <nav className="navbar navbar-expand-lg navbar-light fixed-top">
-        <div className="container">
-          <Link className="navbar-brand" to={"/sign-in"}>Home</Link>
-          <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to={"/sign-in"}>Login</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to={"/sign-up"}>Sign up</Link>
-              </li>
-            </ul>
+const App = () => {
+  return (
+    <BrowserRouter>
+      <div className="App">
+        <div className="panel">
+          <nav className="navbar navbar-expand-lg navbar-light fixed-top">
+            <div className="container">
+              <Link className="navbar-brand" to={"/sign-in"}>
+                Home
+              </Link>
+              <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul className="navbar-nav ml-auto">
+                  {
+                    !localStorage.getItem('auth_token') ? (
+                      <React.Fragment>
+                        <li className="nav-item">
+                        <Link className="nav-link" to={"/sign-in"}>
+                          Login
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link className="nav-link" to={"/sign-up"}>
+                          Sign up
+                        </Link>
+                      </li>
+                      </React.Fragment>
+                    ) : (
+                      <React.Fragment>
+                        <li className="nav-item">
+                          <Link className="nav-link" to={"/member"}>
+                            Member
+                          </Link>
+                        </li>
+                      </React.Fragment>
+                    )
+                  }
+                </ul>
+              </div>
+            </div>
+          </nav>
+          <div className="container">
+            <Switch>
+              <Route path="/sign-in" component={Login} />
+              <Route path="/sign-up" component={SignUp} />
+              <ProtectedRoute path="/home" component={Home} />
+              <ProtectedRoute path="/member" component={Member} />
+              <ProtectedRoute exact path="/" component={Home} />
+            </Switch>
           </div>
         </div>
-      </nav>
-
-      <div className="auth-wrapper">
-        <div className="auth-inner">
-          <Switch>
-            <Route exact path='/' component={Login} />
-            <Route path="/sign-in" component={Login} />
-            <Route path="/sign-up" component={SignUp} />
-          </Switch>
-        </div>
       </div>
-    </div>
-    </Router>
+    </BrowserRouter>
   );
 }
 
