@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CPAS.Common
 {
-    class Constants
+    public class Constants
     {
     }
 }

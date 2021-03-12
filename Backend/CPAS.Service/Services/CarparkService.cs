@@ -20,7 +20,7 @@ namespace CPAS.Service.Services
 
         #endregion
 
-        #region Public Metho
+        #region Public Method
         public async Task<List<CarparkIf>> CheckCarparkAvailability(string datetime)
         {
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create($"https://api.data.gov.sg/v1/transport/carpark-availability?date_time={datetime}");
